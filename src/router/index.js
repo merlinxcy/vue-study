@@ -3,10 +3,10 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Home from '@/views/Home'
 import forma from '@/components/forma'
-
+import prop2 from '@/components/propstest/prop2'
+import store from '../store'
 Vue.use(Router)
-
-export default new Router({
+const router =  new Router({
   routes: [
     {
       path: '/',
@@ -53,5 +53,56 @@ export default new Router({
       name: 'nnn5',
       component: ()=> import('../views/parentPage')
     },
+    {
+      path: '/9',
+      name: 'nnn6',
+      component: ()=> import('../views/propTest')
+    },
+    {
+      path: '/10',
+      name: 'nnn7',
+      component: prop2
+    },
+    {
+      path: '/11',
+      name: 'nnn7',
+      component: ()=> import('../views/prop_all_demo')
+    },
+    {
+      path: '/12',
+      name: 'nnn8',
+      component: ()=> import('../views/slot1show')
+    },
+    {
+      path: '/13',
+      name: 'nnn9',
+      component: ()=> import('../views/childrenss')
+    },
+    {
+      path: '/14',
+      name: 'axios',
+      component: ()=> import('../views/axioin')
+    },
   ]
 })
+
+router.beforeEach((to, from, next)=>{
+  const token = store.state.token
+  console.log(token)
+  next()
+  // if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
+  //   if (token) { // 通过vuex state获取当前的token是否存在
+  //     next()
+  //   } else {
+  //     console.log('该页面需要登陆')
+  //     next({
+  //       path: '/login'
+  //       // query: {redirect: to.fullPath} // 将跳转的路由path作为参数，登录成功后跳转到该路由
+  //     })
+  //   }
+  // } else {
+  //   next()
+  // }
+})
+
+export default router
